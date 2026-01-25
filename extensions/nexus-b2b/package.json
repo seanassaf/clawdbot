@@ -1,0 +1,14 @@
+{
+  "name": "@clawdbot/nexus-b2b",
+  "version": "2026.1.23",
+  "type": "module",
+  "description": "B2B automation platform for document processing, AI analysis, and workflow automation",
+  "clawdbot": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "clawdbot": ">=2026.1.23-1"
+  }
+}
