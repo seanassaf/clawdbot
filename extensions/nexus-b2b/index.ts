@@ -149,6 +149,13 @@ const nexusB2BPlugin = {
   async register(api: ClawdbotPluginApi) {
     const pluginConfig = (api.pluginConfig ?? {}) as NexusB2BConfig;
 
+    // Register CLI commands synchronously (before any async operations)
+    // This ensures CLI is available even if async init is pending
+    api.registerCli(
+      (ctx) => registerNexusCli(ctx),
+      { commands: ["nexus"] },
+    );
+
     if (pluginConfig.enabled === false) {
       api.logger.info("Nexus B2B: Plugin disabled by configuration");
       return;
@@ -333,12 +340,6 @@ const nexusB2BPlugin = {
         }
       });
     }
-
-    // Register CLI commands
-    api.registerCli(
-      (ctx) => registerNexusCli(ctx),
-      { commands: ["nexus"] },
-    );
 
     api.logger.info("Nexus B2B: Plugin registered successfully");
   },

@@ -1,0 +1,53 @@
+{
+  "id": "nexus-b2b",
+  "name": "Nexus B2B Automation",
+  "description": "AI-powered B2B automation platform for document processing, workflow automation, and third-party integration",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "default": true
+      },
+      "dashboard": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean", "default": true },
+          "maxFileSizeMb": { "type": "number", "default": 50 },
+          "analysisTimeoutSeconds": { "type": "number", "default": 60 },
+          "defaultModel": { "type": "string" }
+        }
+      },
+      "agent": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean", "default": true },
+          "connectors": { "type": "array" },
+          "backgroundProcessing": {
+            "type": "object",
+            "properties": {
+              "enabled": { "type": "boolean", "default": true },
+              "maxConcurrentTasks": { "type": "number", "default": 3 }
+            }
+          },
+          "routeOptimization": {
+            "type": "object",
+            "properties": {
+              "enabled": { "type": "boolean", "default": true }
+            }
+          }
+        }
+      },
+      "embedded": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean", "default": true },
+          "cors": { "type": "object" },
+          "rateLimiting": { "type": "object" },
+          "webhooks": { "type": "array" }
+        }
+      }
+    }
+  }
+}
