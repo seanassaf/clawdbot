@@ -386,6 +386,12 @@ importers:
 
   extensions/nextcloud-talk: {}
 
+  extensions/nexus-b2b:
+    dependencies:
+      clawdbot:
+        specifier: '>=2026.1.23-1'
+        version: 2026.1.23-1(@types/express@5.0.6)(audio-decode@2.2.3)(devtools-protocol@0.0.1561482)(typescript@5.9.3)
+
   extensions/nostr:
     dependencies:
       clawdbot:
