@@ -42,18 +42,20 @@ let routeOptimizer: RouteOptimizer | null = null;
 let apiRouter: ApiRouter | null = null;
 let webhookManager: WebhookManager | null = null;
 
+// Track initialization state
+let initialized = false;
+let initPromise: Promise<void> | null = null;
+
 /**
- * Initialize all Nexus B2B components
+ * Initialize all Nexus B2B components (called synchronously, async parts deferred)
  */
-async function initializeNexus(api: ClawdbotPluginApi, config: NexusB2BConfig): Promise<void> {
-  // Dashboard Mode
+function initializeNexusSync(api: ClawdbotPluginApi, config: NexusB2BConfig): void {
+  // Dashboard Mode - create synchronously
   if (config.dashboard?.enabled !== false) {
     documentProcessor = createDocumentProcessor(api, config.dashboard);
-    await documentProcessor.initialize();
-    api.logger.info("Nexus B2B: Dashboard Mode initialized");
   }
 
-  // Agent Mode
+  // Agent Mode - create synchronously
   if (config.agent?.enabled !== false) {
     taskManager = createTaskManager(config.agent?.backgroundProcessing);
 
@@ -70,8 +72,6 @@ async function initializeNexus(api: ClawdbotPluginApi, config: NexusB2BConfig): 
     }
 
     routeOptimizer = createRouteOptimizer(api, config.agent?.routeOptimization);
-
-    api.logger.info("Nexus B2B: Agent Mode initialized");
   }
 
   // Embedded Mode
@@ -85,9 +85,31 @@ async function initializeNexus(api: ClawdbotPluginApi, config: NexusB2BConfig): 
       taskManager,
       documentWatcher,
     });
-
-    api.logger.info("Nexus B2B: Embedded Mode initialized");
   }
+}
+
+/**
+ * Complete async initialization (called lazily when tools are used)
+ */
+async function ensureInitialized(api: ClawdbotPluginApi): Promise<void> {
+  if (initialized) return;
+  if (initPromise) return initPromise;
+
+  initPromise = (async () => {
+    if (documentProcessor) {
+      await documentProcessor.initialize();
+      api.logger.info("Nexus B2B: Dashboard Mode initialized");
+    }
+    if (taskManager) {
+      api.logger.info("Nexus B2B: Agent Mode initialized");
+    }
+    if (apiRouter) {
+      api.logger.info("Nexus B2B: Embedded Mode initialized");
+    }
+    initialized = true;
+  })();
+
+  return initPromise;
 }
 
 /**
@@ -146,11 +168,10 @@ const nexusB2BPlugin = {
     },
   },
 
-  async register(api: ClawdbotPluginApi) {
+  register(api: ClawdbotPluginApi) {
     const pluginConfig = (api.pluginConfig ?? {}) as NexusB2BConfig;
 
-    // Register CLI commands synchronously (before any async operations)
-    // This ensures CLI is available even if async init is pending
+    // Register CLI commands
     api.registerCli(
       (ctx) => registerNexusCli(ctx),
       { commands: ["nexus"] },
@@ -161,124 +182,122 @@ const nexusB2BPlugin = {
       return;
     }
 
-    // Initialize all components
-    await initializeNexus(api, pluginConfig);
+    // Initialize components synchronously
+    initializeNexusSync(api, pluginConfig);
 
-    // Register AI tools for agents
-    api.registerTool(
-      (ctx) => {
-        if (!documentProcessor) return null;
+    // Register AI tools for agents (tools call ensureInitialized lazily)
+    api.registerTool({
+      name: "nexus_analyze_document",
+      description: "Analyze a document using Nexus B2B AI. Returns document type, extracted fields, anomalies, and recommendations.",
+      parameters: Type.Object({
+        content: Type.String({ description: "The document content to analyze" }),
+        fileName: Type.String({ description: "The file name" }),
+        mimeType: Type.Optional(Type.String({ description: "MIME type of the document" })),
+      }),
+      async execute(_id: string, params: { content: string; fileName: string; mimeType?: string }) {
+        await ensureInitialized(api);
+        if (!documentProcessor) {
+          return {
+            content: [{ type: "text", text: JSON.stringify({ error: "Document processor not available" }) }],
+          };
+        }
+        const result = await documentProcessor.processBuffer(
+          Buffer.from(params.content, "utf8"),
+          params.fileName,
+          { type: "api", clientId: "agent" },
+          params.mimeType ?? "text/plain",
+        );
 
         return {
-          name: "nexus_analyze_document",
-          description: "Analyze a document using Nexus B2B AI. Returns document type, extracted fields, anomalies, and recommendations.",
-          parameters: Type.Object({
-            content: Type.String({ description: "The document content to analyze" }),
-            fileName: Type.String({ description: "The file name" }),
-            mimeType: Type.Optional(Type.String({ description: "MIME type of the document" })),
-          }),
-          async execute(_id: string, params: { content: string; fileName: string; mimeType?: string }) {
-            const result = await documentProcessor!.processBuffer(
-              Buffer.from(params.content, "utf8"),
-              params.fileName,
-              { type: "api", clientId: "agent" },
-              params.mimeType ?? "text/plain",
-            );
-
-            return {
-              content: [
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(
                 {
-                  type: "text",
-                  text: JSON.stringify(
-                    {
-                      documentId: result.document.id,
-                      documentType: result.analysis?.documentType,
-                      confidence: result.analysis?.confidence,
-                      summary: result.analysis?.summary,
-                      fields: result.analysis?.extractedFields,
-                      anomalies: result.analysis?.anomalies,
-                      recommendations: result.analysis?.recommendations,
-                      error: result.error,
-                    },
-                    null,
-                    2,
-                  ),
+                  documentId: result.document.id,
+                  documentType: result.analysis?.documentType,
+                  confidence: result.analysis?.confidence,
+                  summary: result.analysis?.summary,
+                  fields: result.analysis?.extractedFields,
+                  anomalies: result.analysis?.anomalies,
+                  recommendations: result.analysis?.recommendations,
+                  error: result.error,
                 },
-              ],
-            };
-          },
-        };
-      },
-      { name: "nexus_analyze_document", optional: true },
-    );
-
-    api.registerTool(
-      (ctx) => {
-        if (!routeOptimizer) return null;
-
-        return {
-          name: "nexus_optimize_routes",
-          description: "Optimize technician routes for field service operations. Takes locations and technicians, returns optimized routes.",
-          parameters: Type.Object({
-            locations: Type.Array(
-              Type.Object({
-                id: Type.String(),
-                address: Type.String(),
-                latitude: Type.Number(),
-                longitude: Type.Number(),
-                serviceTimeMinutes: Type.Optional(Type.Number()),
-              }),
-              { description: "Locations to visit" },
-            ),
-            technicians: Type.Array(
-              Type.Object({
-                id: Type.String(),
-                name: Type.String(),
-                shiftStart: Type.Optional(Type.String()),
-                shiftEnd: Type.Optional(Type.String()),
-              }),
-              { description: "Available technicians" },
-            ),
-            date: Type.Optional(Type.String({ description: "Date for route planning (ISO format)" })),
-          }),
-          async execute(
-            _id: string,
-            params: {
-              locations: Array<{
-                id: string;
-                address: string;
-                latitude: number;
-                longitude: number;
-                serviceTimeMinutes?: number;
-              }>;
-              technicians: Array<{
-                id: string;
-                name: string;
-                shiftStart?: string;
-                shiftEnd?: string;
-              }>;
-              date?: string;
+                null,
+                2,
+              ),
             },
-          ) {
-            const result = await routeOptimizer!.optimizeRoutes(
-              params.locations,
-              params.technicians,
-              params.date ? new Date(params.date) : new Date(),
-            );
-
-            return {
-              content: [
-                {
-                  type: "text",
-                  text: JSON.stringify(result, null, 2),
-                },
-              ],
-            };
-          },
+          ],
         };
       },
-      { name: "nexus_optimize_routes", optional: true },
-    );
+    });
+
+    api.registerTool({
+      name: "nexus_optimize_routes",
+      description: "Optimize technician routes for field service operations. Takes locations and technicians, returns optimized routes.",
+      parameters: Type.Object({
+        locations: Type.Array(
+          Type.Object({
+            id: Type.String(),
+            address: Type.String(),
+            latitude: Type.Number(),
+            longitude: Type.Number(),
+            serviceTimeMinutes: Type.Optional(Type.Number()),
+          }),
+          { description: "Locations to visit" },
+        ),
+        technicians: Type.Array(
+          Type.Object({
+            id: Type.String(),
+            name: Type.String(),
+            shiftStart: Type.Optional(Type.String()),
+            shiftEnd: Type.Optional(Type.String()),
+          }),
+          { description: "Available technicians" },
+        ),
+        date: Type.Optional(Type.String({ description: "Date for route planning (ISO format)" })),
+      }),
+      async execute(
+        _id: string,
+        params: {
+          locations: Array<{
+            id: string;
+            address: string;
+            latitude: number;
+            longitude: number;
+            serviceTimeMinutes?: number;
+          }>;
+          technicians: Array<{
+            id: string;
+            name: string;
+            shiftStart?: string;
+            shiftEnd?: string;
+          }>;
+          date?: string;
+        },
+      ) {
+        await ensureInitialized(api);
+        if (!routeOptimizer) {
+          return {
+            content: [{ type: "text", text: JSON.stringify({ error: "Route optimizer not available" }) }],
+          };
+        }
+        const result = await routeOptimizer.optimizeRoutes(
+          params.locations,
+          params.technicians,
+          params.date ? new Date(params.date) : new Date(),
+        );
+
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      },
+    });
 
     // Register HTTP handler for Embedded Mode API
     if (apiRouter) {
