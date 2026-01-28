@@ -5,6 +5,7 @@
 
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { ClawdbotPluginApi } from "../../../../src/plugins/types.js";
+import { getWebDashboardHtml } from "../dashboard/web-ui.js";
 import type {
   ApiKey,
   ApiKeyScope,
@@ -411,6 +412,13 @@ export class ApiRouter {
     if (method === "OPTIONS") {
       res.writeHead(204);
       res.end();
+      return true;
+    }
+
+    // Serve the Nexus dashboard
+    if (pathname === "/nexus" || pathname === "/nexus/" || pathname === "/nexus/dashboard") {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(getWebDashboardHtml());
       return true;
     }
 

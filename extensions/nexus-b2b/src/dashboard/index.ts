@@ -7,3 +7,4 @@
 
 export { AnalysisEngine, createAnalysisEngine, type AnalysisEngineConfig, type AnalysisInput } from "./analysis-engine.js";
 export { DocumentProcessor, createDocumentProcessor, type ProcessorConfig, type UploadResult } from "./document-processor.js";
+export { getWebDashboardHtml } from "./web-ui.js";
