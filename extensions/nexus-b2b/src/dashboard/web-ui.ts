@@ -507,9 +507,39 @@ Document to analyze:
     const data = await response.json();
     const rawText = data.content[0].text.trim();
 
-    // Strip any markdown fences just in case
-    const jsonStr = rawText.replace(/^\`\`\`json\\n?/, '').replace(/\\n?\`\`\`$/, '').trim();
-    return JSON.parse(jsonStr);
+    // Robust JSON extraction - find the JSON object in the response
+    let jsonStr = rawText;
+
+    // Remove markdown code fences if present
+    if (jsonStr.includes('\`\`\`')) {
+      const match = jsonStr.match(/\`\`\`(?:json)?\\s*([\\s\\S]*?)\`\`\`/);
+      if (match) jsonStr = match[1];
+    }
+
+    // Find the JSON object boundaries
+    const startIdx = jsonStr.indexOf('{');
+    const endIdx = jsonStr.lastIndexOf('}');
+    if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
+      jsonStr = jsonStr.slice(startIdx, endIdx + 1);
+    }
+
+    // Clean up any control characters that might break JSON
+    jsonStr = jsonStr.replace(/[\\x00-\\x1F\\x7F]/g, ' ').trim();
+
+    try {
+      return JSON.parse(jsonStr);
+    } catch (parseErr) {
+      console.error('JSON parse error:', parseErr, 'Raw:', rawText);
+      // Return a fallback response
+      return {
+        documentType: 'unknown',
+        confidence: 0.5,
+        summary: 'Could not parse AI response. Raw text: ' + rawText.slice(0, 200),
+        extractedFields: [],
+        anomalies: [{ description: 'AI response parsing failed', severity: 'medium' }],
+        recommendations: [{ title: 'Retry', description: 'Try analyzing the document again' }]
+      };
+    }
   }
 
   function displayResults(analysis) {

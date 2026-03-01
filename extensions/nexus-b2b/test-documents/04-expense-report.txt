@@ -1,0 +1,58 @@
+EMPLOYEE EXPENSE REPORT
+
+Company: TechVentures Inc.
+Department: Sales - West Region
+
+EMPLOYEE INFORMATION:
+Name: Sarah J. Thompson
+Employee ID: EMP-2847
+Title: Senior Account Executive
+Manager: David Chen
+
+Report Period: February 1-28, 2026
+Submission Date: March 1, 2026
+
+EXPENSE DETAILS:
+================================================================================
+DATE       | CATEGORY      | VENDOR/DESCRIPTION           | AMOUNT   | RECEIPT
+================================================================================
+02/03/2026 | Airfare       | United Airlines - SFO to LAX | $342.00  | Yes
+02/03/2026 | Ground Trans  | Uber to LAX hotel            | $48.50   | Yes
+02/03/2026 | Lodging       | Marriott Los Angeles (2 nts) | $589.00  | Yes
+02/04/2026 | Meals         | Client Dinner - Nobu LA      | $487.25  | Yes
+02/05/2026 | Ground Trans  | Uber to LAX airport          | $52.00   | Yes
+02/12/2026 | Airfare       | Delta - SFO to Seattle       | $278.00  | Yes
+02/12/2026 | Lodging       | Hyatt Seattle (1 night)      | $245.00  | Yes
+02/12/2026 | Meals         | Team lunch                   | $156.80  | Yes
+02/13/2026 | Ground Trans  | Lyft Seattle (3 trips)       | $67.00   | Yes
+02/18/2026 | Office Supply | Staples - presentation items | $89.45   | No
+02/22/2026 | Mileage       | Client visit - 127 miles     | $82.55   | N/A
+02/25/2026 | Conference    | SaaS Summit Registration     | $1,495.00| Yes
+02/28/2026 | Meals         | Coffee meetings (monthly)    | $124.50  | Partial
+================================================================================
+
+EXPENSE SUMMARY:
+----------------
+Airfare:        $620.00
+Lodging:        $834.00
+Meals:          $768.55
+Ground Trans:   $167.50
+Mileage:        $82.55
+Conference:     $1,495.00
+Office Supply:  $89.45
+================================================================================
+TOTAL:          $4,057.05
+================================================================================
+
+POLICY NOTES:
+- Client dinner at Nobu exceeds $100/person limit (4 attendees = $121.81/person)
+- Missing receipt for Staples purchase ($89.45)
+- Coffee meetings have partial receipts only
+
+EMPLOYEE SIGNATURE: _____________________  DATE: 03/01/2026
+
+MANAGER APPROVAL:   _____________________  DATE: ___________
+
+ACCOUNTING USE ONLY:
+GL Code: 6100-4500-SALES
+Cost Center: CC-WEST-01

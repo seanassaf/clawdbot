@@ -1,0 +1,64 @@
+LEGAL SERVICES INVOICE
+
+MORRISON & PARTNERS LLP
+Attorneys at Law
+One Financial Center, Suite 3500
+Boston, MA 02111
+Tel: (617) 555-4200 | Fax: (617) 555-4201
+
+Invoice Number: INV-2026-0892
+Invoice Date: March 1, 2026
+Client Matter: 2024-MRG-0156
+
+BILL TO:
+Westfield Acquisition Corp.
+Attn: Jennifer Walsh, General Counsel
+500 Park Avenue, 12th Floor
+New York, NY 10022
+
+RE: Merger with TechStart Industries - Due Diligence Phase II
+
+PROFESSIONAL SERVICES:
+================================================================================
+DATE       | ATTORNEY          | DESCRIPTION                      | HOURS | RATE    | AMOUNT
+================================================================================
+02/01/2026 | R. Morrison (P)   | Strategy call with client board  | 2.5   | $850.00 | $2,125.00
+02/03/2026 | S. Chen (A)       | Review target company contracts  | 6.0   | $425.00 | $2,550.00
+02/04/2026 | S. Chen (A)       | Contract analysis continued      | 5.5   | $425.00 | $2,337.50
+02/05/2026 | R. Morrison (P)   | Negotiation with target counsel  | 3.0   | $850.00 | $2,550.00
+02/07/2026 | M. Johnson (A)    | IP portfolio due diligence       | 8.0   | $425.00 | $3,400.00
+02/10/2026 | K. Williams (PL)  | Draft merger agreement sections  | 4.5   | $275.00 | $1,237.50
+02/12/2026 | S. Chen (A)       | Employment agreement review      | 4.0   | $425.00 | $1,700.00
+02/14/2026 | R. Morrison (P)   | Client update meeting            | 1.5   | $850.00 | $1,275.00
+02/18/2026 | M. Johnson (A)    | Regulatory compliance analysis   | 6.5   | $425.00 | $2,762.50
+02/20/2026 | K. Williams (PL)  | Revisions to merger agreement    | 3.0   | $275.00 | $825.00
+02/24/2026 | R. Morrison (P)   | Final negotiation session        | 4.0   | $850.00 | $3,400.00
+02/26/2026 | S. Chen (A)       | Closing checklist preparation    | 3.5   | $425.00 | $1,487.50
+================================================================================
+                                              TOTAL HOURS: 52.0
+                                              PROFESSIONAL FEES:      $25,650.00
+
+DISBURSEMENTS:
+- Court filing fees                                                      $350.00
+- Document reproduction (2,400 pages @ $0.25)                            $600.00
+- Westlaw research charges                                               $875.00
+- Overnight courier services                                             $124.50
+- Travel expenses (NYC trip 02/05)                                       $412.80
+                                              TOTAL DISBURSEMENTS:     $2,362.30
+
+================================================================================
+                                              PREVIOUS BALANCE:            $0.00
+                                              CURRENT CHARGES:        $28,012.30
+                                              TOTAL DUE:              $28,012.30
+================================================================================
+
+PAYMENT TERMS: Due upon receipt. Interest of 1.5% per month on balances over 30 days.
+
+TIMEKEEPER LEGEND:
+(P) = Partner | (A) = Associate | (PL) = Paralegal
+
+TRUST ACCOUNT BALANCE: $50,000.00 (Retainer on file)
+
+Questions regarding this invoice? Contact billing@morrisonpartners.com
+
+Thank you for your continued confidence in Morrison & Partners LLP.

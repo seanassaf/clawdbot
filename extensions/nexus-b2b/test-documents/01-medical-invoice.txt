@@ -1,0 +1,36 @@
+PATIENT INVOICE
+
+Healthcare Plus Medical Center
+789 Wellness Drive, Boston, MA 02101
+Phone: (617) 555-0199 | Fax: (617) 555-0198
+
+Invoice #: MED-2026-4521
+Date of Service: February 28, 2026
+Invoice Date: March 1, 2026
+
+PATIENT INFORMATION:
+Name: Robert J. Martinez
+DOB: 04/15/1978
+Insurance ID: BCBS-449922718
+Member Group: CORP-500
+
+SERVICES RENDERED:
+Description                          CPT Code    Amount
+------------------------------------------------------
+Office Visit - Level 3               99213       $185.00
+Complete Blood Count (CBC)           85025       $45.00
+Comprehensive Metabolic Panel        80053       $125.00
+Chest X-Ray, 2 views                 71046       $210.00
+EKG/ECG Interpretation               93010       $75.00
+------------------------------------------------------
+                            Subtotal:            $640.00
+                    Insurance Adjustment:       -$192.00
+                    Insurance Payment:          -$358.40
+------------------------------------------------------
+                    PATIENT RESPONSIBILITY:      $89.60
+
+Payment Due Within: 30 days
+Make checks payable to: Healthcare Plus Medical Center
+
+IMPORTANT: This is your first notice. Please disregard if payment has been made.
+Questions? Contact our billing department at billing@healthcareplus.com

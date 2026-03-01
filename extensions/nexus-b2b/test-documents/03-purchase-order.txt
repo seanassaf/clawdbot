@@ -1,0 +1,50 @@
+PURCHASE ORDER
+
+PACIFIC COAST DISTRIBUTORS
+1500 Harbor Boulevard
+San Diego, CA 92101
+Tel: (619) 555-7800
+
+PO Number: PO-2026-00892
+Date: March 1, 2026
+Delivery Required By: March 15, 2026
+
+SHIP TO:                                BILL TO:
+Pacific Coast Distributors              Pacific Coast Distributors
+Warehouse #2                            Accounts Payable
+3400 Commerce Way                       1500 Harbor Boulevard
+San Diego, CA 92154                     San Diego, CA 92101
+
+VENDOR:
+Global Supply Solutions
+8900 Enterprise Ave
+Los Angeles, CA 90001
+Vendor ID: GSS-44521
+
++-------+----------------------------------+--------+------------+------------+
+| QTY   | DESCRIPTION                      | UNIT   | UNIT PRICE | TOTAL      |
++-------+----------------------------------+--------+------------+------------+
+| 500   | Cardboard Boxes 12x12x12         | Each   | $2.45      | $1,225.00  |
+| 200   | Packing Tape 2" x 110yd          | Roll   | $4.80      | $960.00    |
+| 1000  | Bubble Wrap 12" x 100ft          | Roll   | $18.50     | $18,500.00 |
+| 50    | Pallet Wrap 18" x 1500ft         | Roll   | $32.00     | $1,600.00  |
+| 100   | Shipping Labels 4x6 (500/roll)   | Roll   | $24.99     | $2,499.00  |
++-------+----------------------------------+--------+------------+------------+
+                                          SUBTOTAL:              $24,784.00
+                                          SHIPPING (Freight):    $850.00
+                                          TAX (7.75%):           $1,920.76
+                                          =============================
+                                          TOTAL:                 $27,554.76
+
+PAYMENT TERMS: Net 45
+SHIPPING METHOD: LTL Freight - FedEx Freight
+
+SPECIAL INSTRUCTIONS:
+- Deliver to Loading Dock C
+- Call 30 minutes before arrival: (619) 555-7801
+- Forklift required for unloading
+
+AUTHORIZED BY: ____________________
+               Maria Chen, Procurement Manager
+
+This PO is subject to Pacific Coast Distributors Standard Terms and Conditions.

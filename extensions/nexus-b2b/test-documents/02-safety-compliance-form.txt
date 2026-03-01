@@ -1,0 +1,50 @@
+WORKPLACE SAFETY INSPECTION REPORT
+OSHA COMPLIANCE CHECKLIST
+
+Company: Sterling Manufacturing Inc.
+Location: Plant #3 - 2200 Industrial Parkway, Detroit, MI 48201
+Inspection Date: February 25, 2026
+Inspector: James K. Wilson, CSP (Certified Safety Professional)
+License #: CSP-MI-44892
+
+INSPECTION SUMMARY:
+=====================
+
+AREA 1: Personal Protective Equipment (PPE)
+[X] Safety glasses available and worn           PASS
+[X] Hard hats in designated areas               PASS
+[ ] Hearing protection compliance               FAIL - 3 workers without ear plugs in Zone B
+[X] Steel-toed boots requirement                PASS
+[X] Gloves for chemical handling                PASS
+
+AREA 2: Fire Safety
+[X] Fire extinguishers inspected (monthly)      PASS
+[X] Emergency exits clearly marked              PASS
+[ ] Sprinkler system inspection                 FAIL - Inspection overdue by 45 days
+[X] Evacuation routes posted                    PASS
+
+AREA 3: Hazardous Materials
+[X] SDS sheets available                        PASS
+[X] Proper chemical storage                     PASS
+[X] Spill containment equipment                 PASS
+[ ] Eyewash stations functional                 FAIL - Station #4 has low water pressure
+
+AREA 4: Machine Guarding
+[X] All guards in place                         PASS
+[X] Lockout/Tagout procedures followed          PASS
+[X] Emergency stop buttons functional           PASS
+
+VIOLATIONS FOUND: 3
+SEVERITY: 2 Minor, 1 Moderate
+
+CORRECTIVE ACTIONS REQUIRED:
+1. Provide hearing protection training - Due: March 10, 2026
+2. Schedule sprinkler inspection - Due: March 5, 2026 (URGENT)
+3. Repair eyewash station #4 - Due: March 15, 2026
+
+FOLLOW-UP INSPECTION: March 30, 2026
+
+_________________________________
+Inspector Signature
+
+FAILURE TO CORRECT VIOLATIONS MAY RESULT IN FINES UP TO $15,000 PER VIOLATION
